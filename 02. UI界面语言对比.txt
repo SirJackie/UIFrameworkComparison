@@ -1,0 +1,111 @@
+---------------------------Qt的界面语言---------------------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>80</y>
+      <width>72</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>120</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
+
+
+---------------------------wxWidgets编写界面的方式---------------------------
+----因为wxWidgets没有界面语言，所以连创建一个按钮都需要C++代码，----------------
+----使用代码创建按钮，不同界面的按钮都堆在同一个cpp文件里，----------------------
+----如果是几千个按钮的超级软件（e.g. MS Word），久而久之就会变得难以维护---------
+
+#include <wx/wx.h>
+ 
+class MyFrame : public wxFrame
+{
+public:
+	MyFrame(const wxString & title);
+};
+class MyApp : public wxApp
+{
+ 
+public:
+	virtual bool OnInit();
+};
+ 
+MyFrame::MyFrame(const wxString & title)
+	:wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(250,150))
+{
+	Centre();//将窗口放置在显示屏正中心
+}
+ 
+bool MyApp::OnInit()
+{
+	MyFrame *frame = new MyFrame(wxT("MyApp"));
+	frame->Show(true);
+	return true;
+}
+ 
+ 
+// 核心代码
+IMPLEMENT_APP(MyApp);
+
+
+---------------------------kivy的界面语言---------------------------
+
+<OneScreen>
+    BoxLayout:
+        Button:
+            text: 'Click me'
+            on_release: root.do_something()
+        Button:
+            text: 'Who made this?'
+            on_release: print(root.author)
+
+HTML就不用放例子了，老师很熟(￣▽￣)~*
